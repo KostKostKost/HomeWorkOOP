@@ -1,14 +1,21 @@
 package genealogy;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Person {
     private String name;
-    private int birthYear;
+    private LocalDate birthDate;
+    private LocalDate deathDate;
     private Person father;
     private Person mother;
+    private List<Person> children;
 
-    public Person(String name, int birthYear) {
+    public Person(String name, LocalDate birthDate) {
         this.name = name;
-        this.birthYear = birthYear;
+        this.birthDate = birthDate;
+        this.children = new ArrayList<>();
     }
 
     public String getName() {
@@ -19,12 +26,20 @@ public class Person {
         this.name = name;
     }
 
-    public int getBirthYear() {
-        return birthYear;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public LocalDate getDeathDate() {
+        return deathDate;
+    }
+
+    public void setDeathDate(LocalDate deathDate) {
+        this.deathDate = deathDate;
     }
 
     public Person getFather() {
@@ -42,62 +57,17 @@ public class Person {
     public void setMother(Person mother) {
         this.mother = mother;
     }
-}
 
-public class FamilyTree {
-    private Person rootPerson;
-
-    public FamilyTree(Person rootPerson) {
-        this.rootPerson = rootPerson;
-    }
-
-    public Person getRootPerson() {
-        return rootPerson;
-    }
-
-    // Пример метода для получения всех детей определенного человека
-    public List<Person> getChildren(Person person) {
-        List<Person> children = new ArrayList<>();
-        if (person != null) {
-            if (person.getFather() != null) {
-                children.add(person.getFather());
-            }
-            if (person.getMother() != null) {
-                children.add(person.getMother());
-            }
-        }
+    public List<Person> getChildren() {
         return children;
     }
-}
 
-public class GenealogyResearchApp {
-    public static void main(String[] args) {
-        // Создаем несколько объектов Person
-        Person grandfather = new Person("John", 1930);
-        Person grandmother = new Person("Mary", 1932);
-        Person father = new Person("Michael", 1955);
-        Person mother = new Person("Sarah", 1960);
-        Person child1 = new Person("Alice", 1985);
-        Person child2 = new Person("Bob", 1988);
-
-        // Устанавливаем связи между родственниками
-        father.setFather(grandfather);
-        father.setMother(grandmother);
-        mother.setFather(new Person("Tom", 1958)); // Пример для неполноты данных
-        mother.setMother(new Person("Jane", 1962)); // Пример для неполноты данных
-        child1.setFather(father);
-        child1.setMother(mother);
-        child2.setFather(father);
-        child2.setMother(mother);
-
-        // Создаем генеалогическое дерево с корневым узлом father
-        FamilyTree familyTree = new FamilyTree(father);
-
-        // Получаем всех детей father
-        List<Person> fatherChildren = familyTree.getChildren(father);
-        System.out.println("Children of father:");
-        for (Person child : fatherChildren) {
-            System.out.println(child.getName());
+    public void addChild(Person child) {
+        children.add(child);
+        if (child.getFather() == null) {
+            child.setFather(this);
+        } else if (child.getMother() == null) {
+            child.setMother(this);
         }
     }
 }
