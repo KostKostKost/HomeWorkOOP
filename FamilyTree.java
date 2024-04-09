@@ -1,7 +1,10 @@
+package genealogy.model;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree {
+public class FamilyTree implements Iterable<Person> {
     private List<Person> familyMembers;
 
     public FamilyTree() {
@@ -33,4 +36,10 @@ public class FamilyTree {
         return siblings;
     }
 
+    // Другие методы работы с семьей
+
+    @Override
+    public Iterator<Person> iterator() {
+        return familyMembers.iterator();
+    }
 }

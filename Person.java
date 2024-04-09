@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Person {
+public class Person implements TreeItem {
     private String name;
     private LocalDate birthDate;
     private LocalDate deathDate;
@@ -69,5 +69,10 @@ public class Person {
         } else if (child.getMother() == null) {
             child.setMother(this);
         }
+    }
+
+    @Override
+    public void display() {
+        System.out.println("Name: " + getName() + ", Birth Date: " + getBirthDate() + ", Death Date: " + getDeathDate());
     }
 }
