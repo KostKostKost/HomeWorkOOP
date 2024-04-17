@@ -1,36 +1,33 @@
 package genealogy.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class FamilyTree<T> implements Iterable<T> {
-    private List<T> familyMembers;
+public class FamilyTree {
+    private Map<Person, List<FamilyMember>> familyTree;
 
     public FamilyTree() {
-        this.familyMembers = new ArrayList<>();
+        this.familyTree = new HashMap<>();
     }
 
-    public void addMember(T member) {
-        familyMembers.add(member);
+    public void addMember(Person person) {
+        familyTree.put(person, new ArrayList<>());
     }
 
-    public List<T> getChildren(T person) {
-        List<T> children = new ArrayList<>();
-        // Логика получения детей
-        return children;
+    public void addRelation(Person person, Person relative, Relation relation) {
+        if (!familyTree.containsKey(person)) {
+            addMember(person);
+        }
+        if (!familyTree.containsKey(relative)) {
+            addMember(relative);
+        }
+        familyTree.get(person).add(new FamilyMember(relative, relation));
     }
 
-    public List<T> getSiblings(T person) {
-        List<T> siblings = new ArrayList<>();
-        // Логика получения родственников
-        return siblings;
+    public List<FamilyMember> getRelations(Person person) {
+        return familyTree.getOrDefault(person, new ArrayList<>());
     }
 
-    // Другие методы работы с деревом
-
-    @Override
-    public Iterator<T> iterator() {
-        return familyMembers.iterator();
-    }
 }
