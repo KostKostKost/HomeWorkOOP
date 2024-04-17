@@ -1,16 +1,14 @@
 package genealogy.utils;
 
-import genealogy.model.Person;
-
 import java.util.Comparator;
 import java.util.List;
 
-public class TreeSorter {
-    public static void sortByBirthDate(List<Person> people) {
-        people.sort(Comparator.comparing(Person::getBirthDate));
+public class TreeSorter<T> {
+    public void sortByBirthDate(List<T> items, Comparator<T> birthDateComparator) {
+        items.sort(birthDateComparator);
     }
 
-    public static void sortByName(List<Person> people) {
-        people.sort(Comparator.comparing(Person::getName));
+    public void sortByName(List<T> items, Comparator<T> nameComparator) {
+        items.sort(nameComparator);
     }
 }

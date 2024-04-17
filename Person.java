@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Person implements TreeItem {
+public class Person implements TreeItem<Person> {
     private String name;
     private LocalDate birthDate;
     private LocalDate deathDate;

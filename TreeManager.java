@@ -1,16 +1,12 @@
 package genealogy;
 
-import genealogy.model.Person;
-import genealogy.model.FamilyTree;
-
-import java.time.LocalDate;
 import java.util.Scanner;
 
-public class TreeManager {
-    private FamilyTree familyTree;
+public class TreeManager<T> {
+    private FamilyTree<T> familyTree;
 
-    public TreeManager() {
-        this.familyTree = new FamilyTree();
+    public TreeManager(FamilyTree<T> familyTree) {
+        this.familyTree = familyTree;
     }
 
     public void run() {
@@ -49,31 +45,24 @@ public class TreeManager {
     }
 
     private void addPerson(Scanner scanner) {
-        System.out.print("Enter person's name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter person's birth year: ");
-        int birthYear = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-        Person person = new Person(name, LocalDate.of(birthYear, 1, 1));
-        familyTree.addMember(person);
-        System.out.println("Person added successfully!");
+        // Implement add person logic
     }
 
     private void removePerson(Scanner scanner) {
-        // Implement removal logic
+        // Implement remove person logic
     }
 
     private void searchPerson(Scanner scanner) {
-        // Implement search logic
+        // Implement search person logic
     }
 
     private void displayTree() {
-        familyTree.display();
+        // Implement display tree logic
     }
 
     public static void main(String[] args) {
-        TreeManager treeManager = new TreeManager();
-        treeManager.run();
+        FamilyTree<Person> personFamilyTree = new FamilyTree<>();
+        TreeManager<Person> personTreeManager = new TreeManager<>(personFamilyTree);
+        personTreeManager.run();
     }
 }
-
